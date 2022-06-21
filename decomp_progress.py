@@ -4,14 +4,12 @@ import argparse
 
 
 ### Script to track decompilation progress.
-### Example usage: python3 scripts/decomp_progress.py ~/jak-project/goal_src
 
 def get_goal_files(root_dir, ext = "*.gc"):
     """Get all GOAL source files under root_dir."""
     return [goal_file for file in os.walk(root_dir) for goal_file in glob.glob(os.path.join(file[0], ext))]
 
 
-def lines_in_file(file_path):
     with open(file_path) as f:
         lines = 0
         for _ in f:
@@ -55,7 +53,6 @@ def main():
 
     for fn in all_files:
         short_name = os.path.basename(fn)
-        line_count = lines_in_file(fn)
 
         if short_name in excluded_files:
             continue
@@ -66,7 +63,6 @@ def main():
             # the template has 7 lines, just skip it.
             continue
 
-        file_stats.append((short_name, line_count))
         modified.add(short_name[:-3])
 
     file_stats.sort(key=lambda x: x[1])
